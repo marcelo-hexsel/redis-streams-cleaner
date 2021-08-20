@@ -1,0 +1,11 @@
+{
+  "name": "redis-streams-cleaner",
+  "version": "0.1.0",
+  "description": "Clean Redis Streams messages that are were already read by all consumer groups",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
