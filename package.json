@@ -6,17 +6,18 @@
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
-    "test": "yarn lint && jest --no-cache --forceExit --silent",
-    "functional-test": "jest -c jest.config.functional.js --forceExit --silent",
+    "test": "yarn lint && jest --no-cache",
+    "functional-test": "jest -c jest.config.functional.js --force-exit",
     "build": "tsc"
   },
   "author": "Marcelo Fleck Hexsel",
   "license": "MIT",
-  "peerDependencies": {
+  "dependencies": {
     "redis": "^3.1.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
+    "@types/redis": "^2.8.31",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.22.0",

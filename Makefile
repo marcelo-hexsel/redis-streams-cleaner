@@ -18,6 +18,7 @@ clean:
 
 functional-test: reset
 	@yarn functional-test $(TEST)
+	@make down
 
 up: 
 	@docker-compose up -d --force-recreate redis

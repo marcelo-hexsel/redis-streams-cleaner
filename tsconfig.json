@@ -6,9 +6,10 @@
     "resolveJsonModule": true,
     "declaration": true,
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": false,
-    "strictFunctionTypes": true,
+    "strictFunctionTypes": false,
+    "allowJs": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -23,7 +24,10 @@
     "baseUrl": "./",
     "outDir": "dist",
     "types": ["node", "jest"],
-    "lib": ["ES6"]
+    "lib": ["ES6"],
+    "paths": {
+      "@src/*": ["src/*"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
