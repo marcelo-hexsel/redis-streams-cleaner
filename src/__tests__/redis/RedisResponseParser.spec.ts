@@ -1,4 +1,4 @@
-import { RedisResponseParser } from "@src/RedisResponseParser";
+import { RedisResponseParser } from "@src/redis/RedisResponseParser";
 
 describe("RedisResponseParser", () => {
   const parser = new RedisResponseParser();

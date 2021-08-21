@@ -1,5 +1,6 @@
 import { RedisClient } from "redis";
-import { AsyncRedisAdapter } from "./AsyncRedisAdapter";
+import { AsyncRedisAdapter } from "./redis/AsyncRedisAdapter";
+import { immediateBeforeId } from "./redis/RedisStreamIdHelper";
 
 export class RedisStreamCleaner {
   private asyncRedis: AsyncRedisAdapter;
@@ -9,24 +10,22 @@ export class RedisStreamCleaner {
   }
 
   public async cleanStreamMessages(streamKey: string) {
-    const oldestDeliveredId = await this.findOldestDeliveredId(streamKey);
+    const lastProcessedId = await this.discoverLastProcessedStreamId(streamKey);
 
-    if (!oldestDeliveredId) return;
+    if (!lastProcessedId) return;
 
-    await this.deleteMessagesOlderThan(streamKey, oldestDeliveredId);
+    await this.deleteMessagesOlderThan(streamKey, lastProcessedId);
   }
 
-  private async findOldestDeliveredId(streamKey: string) {
+  private async discoverLastProcessedStreamId(streamKey: string) {
     const xInfoResponse = await this.asyncRedis.xinfo(streamKey);
 
     if (!xInfoResponse) return undefined;
 
-    return xInfoResponse.groups
-      .map((m) => {
-        return m["last-delivered-id"];
-      })
-      .sort()
-      .find(Boolean);
+    const oldestPendingId = xInfoResponse.discoverOldestPendingId();
+    if (oldestPendingId) return immediateBeforeId(oldestPendingId);
+
+    return xInfoResponse.discoverOldestDeliveredId();
   }
 
   private async deleteMessagesOlderThan(streamKey: string, oldestDeliveredId: string) {
