@@ -1,0 +1,15 @@
+version: "3.9"
+
+networks:
+  redis-stream-cleaner-network:
+    name: redis-stream-cleaner-network
+    driver: bridge
+
+services:
+  redis:
+    image: redis:6.0.5
+    container_name: redis-stream-cleaner__redis-server
+    ports:
+      - 6379:6379    
+    networks:
+      - redis-stream-cleaner-network
