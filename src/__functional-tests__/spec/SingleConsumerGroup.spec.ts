@@ -20,7 +20,7 @@ describe("Cleaning all read and ack messages from a Stream with single consumer 
       "should clear all read and ack messages that was already read by the consumer group - total: $totalMessageCount | readAndAck: $readAndAckMessages | remaining: $remainingMessagesAfterClean",
       async (testCaseParameters) => {
         for (let i = 0; i < testCaseParameters.totalMessageCount; i++) {
-          await asyncRedis.xadd(TEST_STREAM, ["item", i.toString()]);
+          await asyncRedis.xadd(TEST_STREAM, "*",["item", i.toString()]);
         }
 
         await asyncRedis.xgroup(TEST_STREAM, CONSUMER_GROUP_ONE);
@@ -53,7 +53,7 @@ describe("Cleaning all read and ack messages from a Stream with single consumer 
       "should clear all read and ack messages that was already read by the consumer group, considering pending messages - total: $totalMessageCount | read: $readMessages | ack: $ackMessages | remaining: $remainingMessagesAfterClean",
       async (testCaseParameters) => {
         for (let i = 0; i < testCaseParameters.totalMessageCount; i++) {
-          await asyncRedis.xadd(TEST_STREAM, ["item", i.toString()]);
+          await asyncRedis.xadd(TEST_STREAM, "*", ["item", i.toString()]);
         }
 
         await asyncRedis.xgroup(TEST_STREAM, CONSUMER_GROUP_ONE);

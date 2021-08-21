@@ -1,4 +1,4 @@
-export const immediateBeforeId = (id: string) => {
+export const immediateBeforeId = (id: string): string => {
   const [firstPart, secondPart] = id.split("-");
 
   if (secondPart !== "0") {
@@ -8,4 +8,13 @@ export const immediateBeforeId = (id: string) => {
 
   const immediateBeforeFirstPart = parseInt(firstPart) - 1;
   return `${immediateBeforeFirstPart}-999`;
+};
+
+export const calculateIdBefore = (id: string, timeBefore: number): string => {
+  if (!timeBefore || timeBefore === 0) return id;
+
+  const [firstPart] = id.split("-");
+
+  const fistPartInTime = parseInt(firstPart);
+  return `${fistPartInTime - timeBefore}-0`;
 };

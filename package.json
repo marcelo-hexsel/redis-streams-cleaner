@@ -7,7 +7,7 @@
     "clean": "rm -rf dist",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "test": "yarn lint && jest --no-cache",
-    "functional-test": "jest -c jest.config.functional.js --force-exit",
+    "functional-test": "jest -c jest.config.functional.js --runInBand --force-exit",
     "build": "tsc"
   },
   "author": "Marcelo Fleck Hexsel",
