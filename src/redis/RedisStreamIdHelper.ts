@@ -10,7 +10,7 @@ export const immediateBeforeId = (id: string): string => {
   return `${immediateBeforeFirstPart}-999`;
 };
 
-export const calculateIdBefore = (id: string, timeBefore: number): string => {
+export const calculateIdWithTimeToKeep = (id: string, timeBefore: number): string => {
   if (!timeBefore || timeBefore === 0) return id;
 
   const [firstPart] = id.split("-");

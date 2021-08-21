@@ -1,3 +1,5 @@
+import { immediateBeforeId } from "./RedisStreamIdHelper";
+
 export class XInfoResponse {
   length: number;
   "radix-tree-keys": number;
@@ -6,7 +8,14 @@ export class XInfoResponse {
   entries: Array<unknown>;
   groups: Array<ConsumerGroup>;
 
-  public discoverOldestPendingId(): string {
+  public discoverLastProcessedStreamId(): string {
+    const oldestPendingId = this.discoverOldestPendingId();
+    if (oldestPendingId) return immediateBeforeId(oldestPendingId);
+
+    return this.discoverOldestDeliveredId();
+  }
+
+  private discoverOldestPendingId(): string {
     return this.groups
       .map((m) => {
         return m.pending.map((p) => Object.keys(p).find(Boolean));
@@ -20,7 +29,7 @@ export class XInfoResponse {
       .find(Boolean);
   }
 
-  public discoverOldestDeliveredId(): string {
+  private discoverOldestDeliveredId(): string {
     return this.groups
       .map((m) => {
         return m["last-delivered-id"];

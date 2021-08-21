@@ -1,6 +1,6 @@
 import { RedisClient } from "redis";
 import { AsyncRedisAdapter } from "./redis/AsyncRedisAdapter";
-import { calculateIdBefore as calculateIdWithTimeToKeep, immediateBeforeId } from "./redis/RedisStreamIdHelper";
+import { calculateIdWithTimeToKeep } from "./redis/RedisStreamIdHelper";
 import { DEFAULT_OPTIONS, RedisStreamCleanerOptions } from "./RedisStreamCleanerOptions";
 
 export class RedisStreamCleaner {
@@ -13,24 +13,17 @@ export class RedisStreamCleaner {
   }
 
   public async cleanStreamMessages(streamKey: string): Promise<void> {
-    const lastProcessedId = await this.discoverLastProcessedStreamId(streamKey);
+    const xInfoResponse = await this.asyncRedis.xinfo(streamKey);
+
+    if (!xInfoResponse) return;
+
+    const lastProcessedId = xInfoResponse.discoverLastProcessedStreamId();
 
     if (!lastProcessedId) return;
 
     const idWithTimeToKeep = calculateIdWithTimeToKeep(lastProcessedId, this.options.timeToKeepBeforeLastProcessedMessage);
 
     await this.deleteMessagesUntil(streamKey, idWithTimeToKeep);
-  }
-
-  private async discoverLastProcessedStreamId(streamKey: string): Promise<string> {
-    const xInfoResponse = await this.asyncRedis.xinfo(streamKey);
-
-    if (!xInfoResponse) return undefined;
-
-    const oldestPendingId = xInfoResponse.discoverOldestPendingId();
-    if (oldestPendingId) return immediateBeforeId(oldestPendingId);
-
-    return xInfoResponse.discoverOldestDeliveredId();
   }
 
   private async deleteMessagesUntil(streamKey: string, oldestDeliveredId: string): Promise<void> {
