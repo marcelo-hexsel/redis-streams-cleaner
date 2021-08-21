@@ -1,3 +1,4 @@
-import { RedisStreamCleaner, RedisStreamCleanerOptions } from "./RedisStreamCleaner";
+import { RedisStreamCleaner } from "./RedisStreamCleaner";
+import { RedisStreamCleanerOptions } from "./RedisStreamCleanerOptions";
 
 export { RedisStreamCleaner, RedisStreamCleanerOptions };
