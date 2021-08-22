@@ -1,8 +1,10 @@
 name: redis-streams-cleaner-ci
 
 on:
+  workflow_dispatch:
   release:
-    types: [created]
+    types: 
+      - created
   
 jobs:
   build:
