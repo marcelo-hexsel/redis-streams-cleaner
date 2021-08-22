@@ -1,0 +1,21 @@
+name: redis-streams-cleaner-ci
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - run: make tools
+      - run: make install
+      - run: make test
+      - run: make build
