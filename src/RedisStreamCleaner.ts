@@ -31,9 +31,7 @@ export class RedisStreamCleaner {
     do {
       idsToDelete = await this.findMessagesToDelete(streamKey, oldestDeliveredId);
 
-      const deletePromises = idsToDelete.map((id) => this.asyncRedis.xdel(streamKey, id));
-
-      await Promise.all(deletePromises);
+      idsToDelete.forEach(async (id) => await this.asyncRedis.xdel(streamKey, id));
     } while (idsToDelete.length > 0);
   }
 
