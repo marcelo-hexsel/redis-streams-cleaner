@@ -27,7 +27,7 @@ or
 yarn add redis-streams-cleaner
 ```
 
-You can create a small program like below run it on schedules (for instance in a cron).  
+You can create a small program like below and run it on schedules (for instance in a cron).  
 The option ```timeToKeepBeforeLastProcessedMessage``` (default: 0) tells the clean up to keep some time range (in milliseconds) of messages after the last message that was already read by all its consumers.
 
 ```typescript
