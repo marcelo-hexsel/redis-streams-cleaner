@@ -2,9 +2,9 @@ name: redis-streams-cleaner-ci
 
 on:
   workflow_dispatch:
-  release:
-    types: 
-      - created
+  push:
+    branches:
+      - main
   
 jobs:
   build:
@@ -20,6 +20,3 @@ jobs:
       - run: make install
       - run: make test
       - run: make build
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
