@@ -1,6 +1,7 @@
 name: redis-streams-cleaner-ci
 
 on:
+  workflow_dispatch:
   push:
     tags:
     - '*'
