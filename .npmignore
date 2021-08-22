@@ -1,2 +1,13 @@
 dist/__tests__
 dist/__functional-tests__
+
+src
+.github
+coverage
+.eslintrc
+.prettierrc
+docker-compose.yml
+Makefile
+jest.config.js
+jest.config.functional.js
+tsconfig.json
