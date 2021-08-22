@@ -1,6 +1,6 @@
 {
   "name": "redis-streams-cleaner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Clean Redis Streams messages that are were already read by all consumer groups",
   "repository": {
     "url": "https://github.com/marcelo-hexsel/redis-streams-cleaner"
