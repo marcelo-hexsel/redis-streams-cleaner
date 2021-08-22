@@ -7,5 +7,9 @@ export const REDIS_CLIENT = Redis.createClient({
 });
 
 export const TEST_STREAM = "TEST_STREAM";
+
 export const CONSUMER_GROUP_ONE = "consumer-group-one";
 export const CONSUMER_ONE = "consumer-one";
+
+export const CONSUMER_GROUP_TWO = "consumer-group-two";
+export const CONSUMER_TWO = "consumer-two";
