@@ -1,4 +1,4 @@
-name: redis-streams-cleaner-publish
+name: redis-streams-cleaner-ci
 
 on:
   release:
