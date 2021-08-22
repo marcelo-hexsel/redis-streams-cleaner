@@ -2,6 +2,8 @@
 
 Clean Redis Streams messages that are were already read by all consumer groups
 
+[![redis-streams-cleaner-ci](https://github.com/marcelo-hexsel/redis-streams-cleaner/actions/workflows/main.yml/badge.svg)](https://github.com/marcelo-hexsel/redis-streams-cleaner/actions/workflows/main.yml)
+
 ## Project purpose
 
 Redis Streams are one of the great features of Redis Server.  
