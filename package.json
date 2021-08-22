@@ -1,6 +1,6 @@
 {
   "name": "redis-streams-cleaner",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Clean Redis Streams messages that are were already read by all consumer groups",
   "main": "dist/index.js",
   "scripts": {
