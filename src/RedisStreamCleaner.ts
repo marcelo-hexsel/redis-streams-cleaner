@@ -1,5 +1,6 @@
 import { RedisClient } from "redis";
 import { AsyncRedisAdapter } from "./redis/AsyncRedisAdapter";
+import { INITIAL_ID } from "./redis/RedisConstants";
 import { calculateIdWithTimeToKeep } from "./redis/RedisStreamIdHelper";
 import { DEFAULT_OPTIONS, RedisStreamCleanerOptions } from "./RedisStreamCleanerOptions";
 
@@ -19,7 +20,7 @@ export class RedisStreamCleaner {
 
     const lastProcessedId = xInfoResponse.discoverLastProcessedStreamId();
 
-    if (!lastProcessedId) return;
+    if (!lastProcessedId || lastProcessedId === INITIAL_ID) return;
 
     const idWithTimeToKeep = calculateIdWithTimeToKeep(lastProcessedId, this.options.timeToKeepBeforeLastProcessedMessage);
 
